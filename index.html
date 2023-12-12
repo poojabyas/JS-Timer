@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+      body{
+        text-align: center;
+        margin-top: 10%;
+        padding: 5%; 
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+        margin-left: 40%;   
+        margin-right: 40%;  
+      
+      }
+      button{
+        width: auto;
+        padding: 5%;
+        margin: 5%;
+      }
+    </style>
+</head>
+<body>
+    <h1 id="timer">Timer: 5:00</h1>
+    <button onclick="startCountdown()">Start</button>
+    <button onclick="stopCountdown()">Stop</button>
+    <button onclick="resetCountdown()">Reset</button>
+
+    <script>
+        let timerElement = document.getElementById("timer");
+        let totalSeconds = 300; // 5 min
+        let countdownInterval;
+
+        function startCountdown() {
+            countdownInterval = setInterval(() => {
+                if (totalSeconds > 0) {
+                    totalSeconds--;
+                    updateTimerDisplay();
+                } else {
+                    stopCountdown()
+                    alert("Countdown completed!");
+                }
+            }, 1000);
+        }
+
+        function stopCountdown() {
+            clearInterval(countdownInterval);
+        }
+
+        function resetCountdown() {
+            totalSeconds = 300; 
+            updateTimerDisplay();
+            stopCountdown();
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            timerElement.textContent = `Timer: ${formattedTime}`;
+        }
+    </script>
+</body>
+</html>
